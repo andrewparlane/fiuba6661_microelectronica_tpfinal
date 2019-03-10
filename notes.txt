@@ -1,0 +1,105 @@
+PLL for a micro
+    TSMC 180nm
+        Lmin = 0.18um
+        Wmin = 0.42um
+        LDmin = 0.48um
+        Vdd = 1.8V??
+        WPFACT = 1.5
+        t_ox = 4.1 nm
+        C'ox = 8418 aF/um^2
+    Digital PLL (DPLL)
+    clock multiplier
+    input is reference clock
+        what range?
+    components
+        prescaler ???
+            divider on input clock
+        PLL
+            phase comparator
+                add a lock signal?
+            loop filter
+                charge pump - why?
+                low pass filter
+            VCO
+            divider N
+                means VCO output is N times the input to the phase comparator
+        postscalar M
+            VCO can only output a certain range
+            We can use this to get less than that
+            Fout = N Fin / MP
+    Dividers
+        prescaler, postscalar, PLL divider
+        basic divide by 2^x? Or more complex divide by n
+            X bit incrementer
+            comparator
+            https://reference.digilentinc.com/learn/programmable-logic/tutorials/counter-and-clock-divider/start
+    Design spec
+        output skew
+        output frequency range
+            100MHz - 2GHz?
+    Measurements
+        variables:
+            jitter on input
+            different input frequencies
+            different Vdds
+            nois on the DC supply
+            different voltage on the reference
+            noise on the reference
+            temperature
+        metrics:
+            output jitter
+            output frequency
+            lock time
+            https://en.wikipedia.org/wiki/Phase-locked_loop_ranges
+            Mariano dice incluir:
+                La simulación de cada bloque del PLL por separado mostrando la máxima frecuencia de operación en cada caso.
+                Estimar el K_VCO por simulación graficando frecuencia vs tensión de entrada
+                Estimar el pull-in range y lock-in range.
+    To further improve the phase noise of the output, an injection locked oscillator can be employed following the VCO in the PLL.
+        ??
+    Block diagram:
+        https://en.wikipedia.org/wiki/File:PLL_frequency_synthesizer_2.svg
+    Bibliography
+        Baker
+        https://www.researchgate.net/publication/301512811_Analysis_and_Design_of_Current_Starved_Ring_VCO
+
+
+VCO current source:
+    10uA center:
+        L = 3u
+        WN_CS = 30u
+        WPFACT_CS = 1.5
+        R_CS = 11.7k
+        WIDE_FACT = 3
+
+VCO:
+    Ctot = 5/2 C'ox (WpLp + WnLn)
+    f = Id / N Ctot Vdd
+
+    L = 0.18u
+    W = 1.95u
+    with current source values for 10uA at centre
+    gives f centre = 400MHz range of 0MHz to ~1GHz
+    K_VCO ~= 660e6 * 2pi rads / Vs = 4.1e9 rads / Vs
+
+links
+    http://emlab.uiuc.edu/jose/Theses/mehta_ms.pdf
+    http://aries.ucsd.edu/najmabadi/CLASS/ECE60L/02-S/NOTES/filter.pdf
+
+
+Todo
+----
+    Size the current source transistors correctly
+        how to do this?
+        We want 10uA for now, where's that.
+    http://emlab.uiuc.edu/jose/Theses/mehta_ms.pdf
+        read up on deadzone. Make sure we are good
+    Measure current in right hand branch of current mirror for Vin DC spread
+    Increase W/L of inverters in VCO, because maybe for min values they can't
+        handle the current from the current mirror. Also try increasing W.
+        So that W/L != Wmin/Lmin.
+    Try calculating Fcent = Id / N Ctot Vdd, for N=7 Id=10uA. Is f accurate?
+        increase L and W and .. of VCO, now is it accurate
+        maybe simulate .step of W/L? or W?
+        If it's still massively unaccurate, then try to measure Ctot in some way
+            How to measure Ctot of an invertor in spice?
