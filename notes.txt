@@ -65,22 +65,35 @@ PLL for a micro
 
 
 VCO current source:
-    10uA center:
+    1) 10uA center:
         L = 3u
         WN_CS = 30u
         WPFACT_CS = 1.5
-        R_CS = 11.7k
+        R1_CS = 11.7k
+        R2_CS = 100G
+        WIDE_FACT = 3
+    2) 10uA center, 5uA min:
+        L = 0.9u
+        WN_CS = 4u
+        WPFACT_CS = 1.5
+        R1_CS = 20k
+        R2_CS = 86k
         WIDE_FACT = 3
 
 VCO:
     Ctot = 5/2 C'ox (WpLp + WnLn)
     f = Id / N Ctot Vdd
 
-    L = 0.18u
-    W = 1.95u
-    with current source values for 10uA at centre
-    gives f centre = 400MHz range of 0MHz to ~1GHz
-    K_VCO ~= 660e6 * 2pi rads / Vs = 4.1e9 rads / Vs
+    For current source 1)
+        L = 0.18u
+        W = 1.95u
+        gives f centre = 400MHz range of 0MHz to ~1GHz
+        K_VCO ~= 660e6 * 2pi rads / Vs = 4.1e9 rads / Vs
+
+    For current source 2)
+        L = 0.18u
+        W = 0.57u
+        gives f centre = 140MHz range of 62MHz to 330MHz
 
 links
     http://emlab.uiuc.edu/jose/Theses/mehta_ms.pdf
