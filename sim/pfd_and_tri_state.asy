@@ -1,0 +1,13 @@
+Version 4
+SymbolType BLOCK
+RECTANGLE Normal 96 32 -48 -32
+SYMATTR SpiceLine VDD=1.8 LD=0.48u PFD_L=0.18u PFD_WN=0.42u TS_L=0.9u TS_WN=2.1u WPFACT=1.5
+PIN -48 -16 LEFT 8
+PINATTR PinName data
+PINATTR SpiceOrder 1
+PIN -48 16 LEFT 8
+PINATTR PinName dclock
+PINATTR SpiceOrder 2
+PIN 96 0 RIGHT 8
+PINATTR PinName Vpd
+PINATTR SpiceOrder 3

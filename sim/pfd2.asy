@@ -1,11 +1,11 @@
 Version 4
 SymbolType CELL
-LINE Normal -32 -48 -32 48
+LINE Normal -32 -48 -32 32
 LINE Normal 144 -48 -32 -48
-LINE Normal 144 48 144 -48
-LINE Normal -32 48 144 48
+LINE Normal 144 32 144 -48
+LINE Normal -32 32 144 32
 WINDOW 0 -31 -62 Left 2
-SYMATTR SpiceLine VDD=1.8 L=0.18u LD=0.48u WN=0.42u
+SYMATTR SpiceLine VDD=1.8 L=0.18u LD=0.48u WN=0.42u WPFACT=1.5
 PIN -32 -32 LEFT 8
 PINATTR PinName data
 PINATTR SpiceOrder 1
